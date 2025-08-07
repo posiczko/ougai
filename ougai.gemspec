@@ -20,7 +20,10 @@ Gem::Specification.new do |spec|
   spec.files         = Dir['[A-Z]*[^~]'] + Dir['lib/**/*.rb'] + ['README.md', 'LICENSE.txt']
   spec.require_paths = ['lib']
 
-  spec.required_ruby_version = '>= 2.5.0'
+  spec.required_ruby_version = '>= 2.7.0'
+
+  # Add logger dependency to silence deprecation warnings in Ruby 3.5+
+  spec.add_dependency "logger", ">= 1.4.0"
 
   if RUBY_PLATFORM =~ /java/
     spec.platform = 'java'
