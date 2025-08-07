@@ -105,7 +105,7 @@ describe Ougai::Formatters::Pino do
             pid: $$, level: 50, time: time, v: 1,
             type: 'Error',
             msg: 'it is dummy.',
-            stack: "DummyError: it is dummy.\n    #{stack}"
+            stack: +"DummyError: it is dummy.\n    #{stack}"
           })
         end
       end
@@ -119,7 +119,7 @@ describe Ougai::Formatters::Pino do
 
         before do
           formatter.trace_indent = 2
-          stack.gsub!(/    /, '  ')
+          stack.gsub!(/\s{4}/, '  ')
         end
 
         it 'includes valid hash' do
@@ -127,7 +127,7 @@ describe Ougai::Formatters::Pino do
             pid: $$, level: 60, time: time, v: 1,
             type: 'Error',
             msg: 'TheEnd',
-            stack: "DummyError: it is dummy.\n  #{stack}",
+            stack: +"DummyError: it is dummy.\n  #{stack}",
           })
         end
       end

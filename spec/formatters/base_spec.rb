@@ -26,10 +26,10 @@ describe Ougai::Formatters::Base do
     let!(:hostname) { nil }
 
     it 'has default app_name and default hostname' do
-      myhostname = "Taro\xE2\x80\x99s-MacBook".force_encoding('ASCII-8BIT')
+      myhostname = (+"Taro\u2019s-MacBook").force_encoding('ASCII-8BIT')
       allow(Socket).to receive(:gethostname).and_return(myhostname)
       expect(subject.app_name).to eq('rspec')
-      expect(subject.hostname).to eq("Taro’s-MacBook")
+      expect(subject.hostname).to eq("Taro\u2019s-MacBook")
     end
   end
 
@@ -75,7 +75,7 @@ describe Ougai::Formatters::Base do
         raise errmsg
       rescue => e
         result = subject.serialize_exc(e)
-      end        
+      end
       expect(result[:message]).to eq(errmsg)
       expect(result[:stack]).to be_instance_of(String)
     end
@@ -88,7 +88,7 @@ describe Ougai::Formatters::Base do
           raise errmsg
         rescue => e
           result = subject.serialize_exc(e)
-        end        
+        end
         expect(result[:message]).to eq(errmsg)
         expect(result[:stack]).to be_instance_of(Array)
         expect(result[:stack].size).to eq(6)
